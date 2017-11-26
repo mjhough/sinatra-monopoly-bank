@@ -2,7 +2,7 @@
 A monopoly bank for players in the form of a Sinatra webapp.
 
 * Set 1 banker
-* 30sec auctions
+* Timed auctions
 * unlimited players
 * Transaction log for transparency
 

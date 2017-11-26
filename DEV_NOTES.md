@@ -12,15 +12,20 @@
   * payer
   * amount
   * description
+  * property_id
+  * auction_id
 
 * Properties
   * name
   * price
   * rent for each level (eg. 2 houses, 1 hotel etc)
+  * user_id
+  * auction_id
 
 * Auctions
   * Property name
-  * 
+  * Time
+  * Retail price
 
 * UserTransactions
   * user_id
@@ -32,6 +37,8 @@
 * Properties belong to a user
 * Properties have many transactions 
 * Transactions have one property
+* Properties belong to an auction
+* Transactions belong to a transaction
 
 ## Pages
 * Index - not accessible if game in progress
