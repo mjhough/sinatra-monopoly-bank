@@ -1,6 +1,11 @@
 # sinatra-monopoly-bank
 A monopoly bank for players in the form of a Sinatra webapp.
 
+* Set 1 banker
+* 30sec auctions
+* unlimited players
+* Transaction log for transparency
+
 ## Installation & Setup
 To be determined...
 
