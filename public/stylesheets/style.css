@@ -1,0 +1,30 @@
+#welcome {
+    text-align: center;
+}
+
+#monopoly-man {
+    margin: 2.5% auto;
+    width: 25%;
+    height: 500px;
+    background-image: url("/images/monopoly-man.png");
+    background-size: 500px;
+    background-position: center center;
+}
+
+#buttons {
+    margin: 0 auto;
+    text-align: center
+}
+
+#buttons form {
+    display: inline;
+}
+
+#game-buttons {
+    padding: 0.5%;
+    color: red;
+}
+
+#user-buttons {
+    color: blue;
+}

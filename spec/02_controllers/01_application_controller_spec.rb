@@ -7,7 +7,7 @@ describe ApplicationController do
       expect(last_response.body).to include("Welcome to The Monopoly Bank")
       expect(last_response.body).to include("Instructions")
       expect(last_response.body).to include("New Game")
-      expect(last_response.body).to include("Continue Last Game")
+      expect(last_response.body).to include("Continue Game")
     end
 
     it "prevents the user from continuing game unless one exists" do
