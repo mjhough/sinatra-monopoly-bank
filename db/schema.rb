@@ -10,17 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171126231254) do
+ActiveRecord::Schema.define(version: 20171127033903) do
 
   create_table "auctions", force: :cascade do |t|
-    t.string "property_name"
     t.integer "time_limit"
-    t.integer "retail_price"
+    t.integer "property_id"
+    t.integer "payment_id"
   end
 
   create_table "payments", force: :cascade do |t|
-    t.integer "payee_account"
-    t.integer "payer_account"
+    t.string "payee_account", limit: 5
+    t.string "payer_account", limit: 5
     t.integer "amount"
     t.string "description"
     t.datetime "created_at", null: false
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20171126231254) do
     t.string "name"
     t.string "username"
     t.string "password_digest"
-    t.integer "account_number"
+    t.string "account_number", limit: 5
   end
 
 end
