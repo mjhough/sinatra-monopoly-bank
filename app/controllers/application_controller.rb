@@ -2,6 +2,7 @@ require './config/environment'
 require 'rack-flash'
 
 class ApplicationController < Sinatra::Base
+  include Helpers::InstanceMethods
   use Rack::Flash
 
   configure do
