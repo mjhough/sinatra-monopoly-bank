@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Monopoly Bank - Game</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    </head>
+    <body>
+        <div>
+            <div class="topright">
+                <a href="/logout" style="text-decoration: none;"><p style="<%= "display: none;" if !logged_in? %>"><%= "logged in as #{current_user.name}" if current_user %></p></a>
+            </div>
+            <div class="topright-under">
+                <p style="<%= "display: none;" if !logged_in? %>"><%= "log out" %></p>
+            </div>
+        </div>
+
+        <div id="users-in-game" class="topleft">
+            <div>
+                <h3>Users In Game</h3>
+                <ul>
+                <% @users.each do |user| %>
+                    <li><p><a href="/users/<%= user.id %>"><p><%= user.name %></a> - $<%= user.balance %></p></li>
+                <% end %>
+                </ul>
+            </div>
+        </div>
+
+        <div class="center-block" id="info-block">
+            <div>
+                <h3>Menu</h3>
+                <p><a href="/payments/send">Send Money</a></p>
+                <p><a href="/auctions/new">Start Auction</a></p>
+                <p><a href="/properties">Properties</a></p>
+                <p><a href="/settings">Settings</a></p>
+            </div>
+        </div>
+
+        <div class="center-block" id="recent-payments">
+            <div>
+                <h3>Recent Payments</h3>
+                <% if !@payments.nil? && !@payments.empty? %>
+                    <% @payments.each do |payment| %>
+                    <%= payment.amount %>
+                    <% end %>
+                <% else %>
+                    <p>No payments have been made</p>
+                <% end %>
+            </div>
+        </div>
+    </body>
+</html>

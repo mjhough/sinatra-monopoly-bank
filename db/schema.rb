@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128000202) do
+ActiveRecord::Schema.define(version: 20171128010047) do
 
   create_table "auctions", force: :cascade do |t|
     t.integer "time_limit"
@@ -54,6 +54,7 @@ ActiveRecord::Schema.define(version: 20171128000202) do
     t.string "password_digest"
     t.string "account_number", limit: 5
     t.integer "game_id"
+    t.integer "balance", default: 15000000
   end
 
 end

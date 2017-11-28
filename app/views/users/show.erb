@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Monopoly Bank - <%= @user.name %>'s Profile</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    </head>
+    <body>
+        <div>
+            <div class="topright">
+                <a href="/logout" style="text-decoration: none;"><p style="<%= "display: none;" if !logged_in? %>"><%= "logged in as #{current_user.name}" if current_user %></p></a>
+            </div>
+            <div class="topright-under">
+                <p style="<%= "display: none;" if !logged_in? %>"><%= "log out" %></p>
+            </div>
+        </div>
+
+        <div id="user-info" class="center-block">
+            <div>
+                <h1><%= @user.name %> (<%= @user.username %>)</h1>
+                <hr width="50%">
+
+                <h2>Balance: $<%= @user.balance %></h2>
+                <h2>Account Number: <%= @user.account_number %></h2>
+                <br>
+                <h2>Payments</h2>
+                <% if !@user.payments.nil? && !@user.payments.empty? %>
+                    <% @user.payments.each do |payment| %>
+                        <%= payment.amount %>
+                    <% end %>
+                <% else %>
+                    <p>No payments have been made</p>
+                <% end %>
+                <br>
+                <h2>Properties</h2>
+                <% if !@user.properties.nil? && !@user.properties.empty? %>
+                    <% @user.properties.each do |property| %>
+                        <%= property.name %>
+                    <% end %>
+                <% else %>
+                    <p>No properties are owned</p>
+                <% end %>
+            </div>
+        </div>
+    </body>
+</html>

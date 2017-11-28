@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Monopoly Bank - Send Money</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    </head>
+    <body>
+        <div>
+            <div class="topright">
+                <a href="/logout" style="text-decoration: none;"><p style="<%= "display: none;" if !logged_in? %>"><%= "logged in as #{current_user.name}" if current_user %></p></a>
+            </div>
+            <div class="topright-under">
+                <p style="<%= "display: none;" if !logged_in? %>"><%= "log out" %></p>
+            </div>
+        </div>
+
+        <div id="user-info" class="center-block">
+            <div>
+                <h1>Send Money</h1>
+                <br>
+                <form action="/payments/send" method="post">
+                    <label for="payer_account">Payer:</label>
+                    <input id="payer_account" type="text" name="payer_account" value="<%= @user.account_number %>" readonly>
+                    <br><br>
+                    <label for="payee_account">Payee:</label>
+                    <input id="payee_account" type="text" name="payee_account">
+                    <br><br>
+                    <label for="amount">Amount:</label>
+                    <input id="amount" type="number" name="amount" min="1">
+                    <br><br>
+                    <input type="submit" value="Send">
+                </form>
+            </div>
+
+            <div id="payment-instructions">
+                <h2>Instructions</h2>
+                <p>1. Enter the account number of the user you would like to send money to in the <br> payee box. If you are sending money to the bank, enter 'bank' in the payee box.</p>
+                <p>2. Enter the amount in dollars you would like to send.</p>
+            </div>
+        </div>
+    </body>
+</html>
