@@ -102,3 +102,19 @@ div div#payment-instructions h2 {
 .required:after {
     content: " *";
 }
+
+div#recent-payments.center-block table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+div#recent-payments.center-block td, th {
+    padding: 0.25rem 1rem;
+    text-align: left;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+div#recent-payments.center-block tbody tr:nth-child(odd) {
+    background: #eee;
+}

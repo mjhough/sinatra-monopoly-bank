@@ -39,13 +39,34 @@
         <div class="center-block" id="recent-payments">
             <div>
                 <h3>Recent Payments</h3>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Payer</th>
+                        <th>Payee</th>
+                        <th>Property</th>
+                        <th >Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                 <% if !@payments.nil? && !@payments.empty? %>
-                    <% @payments.each do |payment| %>
-                    <%= payment.amount %>
+                    <p><% @payments.each do |payment| %>
+                    <tr>
+                        <td><%= payment.created_at.ctime %></td>
+                        <td>$<%= payment.amount %></td>
+                        <td><%= payment.users[1].name %></td>
+                        <td><%= payment.users[0].name %></td>
+                        <td><%= payment.property.name unless payment.property.nil? %></td>
+                        <td><%= payment.description %></td>
+                    </tr>
                     <% end %>
                 <% else %>
                     <p>No payments have been made</p>
                 <% end %>
+                </tbody>
+                </table>
             </div>
         </div>
     </body>
