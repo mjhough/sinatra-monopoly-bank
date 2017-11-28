@@ -6,6 +6,18 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     </head>
     <body>
+        <header>
+            <div class="nav">
+                <ul style="list-style: none; text-align: center;">
+                    <li class="game-home"><a href="/game">Game Home</a></li>
+                    <li class="send-money"><a href="/payments/send">Send Money</a></li>
+                    <li class="auction"><a href="/auctions/new">Auction</a></li>
+                    <li class="payments"><a href="/payments">Payments</a></li>
+                    <li class="properties"><a href="/properties">View Properties</a></li>
+                </ul>
+            </div>
+        </header>
+
         <div>
             <div class="topright">
                 <a href="/logout" style="text-decoration: none;"><p style="<%= "display: none;" if !logged_in? %>"><%= "logged in as #{current_user.name}" if current_user %></p></a>
@@ -24,22 +36,64 @@
                 <h2>Account Number: <%= @user.account_number %></h2>
                 <br>
                 <h2>Payments</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Amount</th>
+                        <th>Payer</th>
+                        <th>Payee</th>
+                        <th>Property</th>
+                        <th >Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                 <% if !@user.payments.nil? && !@user.payments.empty? %>
-                    <% @user.payments.each do |payment| %>
-                        <%= payment.amount %>
+                    <p><% @user.payments.each do |payment| %>
+                    <tr>
+                        <td><%= payment.created_at.ctime %></td>
+                        <td>$<%= payment.amount %></td>
+                        <td><%= payment.users[1].name %></td>
+                        <td><%= payment.users[0].name %></td>
+                        <td><%= payment.property.name unless payment.property.nil? %></td>
+                        <td><%= payment.description %></td>
+                    </tr>
                     <% end %>
                 <% else %>
                     <p>No payments have been made</p>
                 <% end %>
+                </tbody>
+                </table>
                 <br>
                 <h2>Properties</h2>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Last Updated</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Rent</th>
+                        <th>Payments</th>
+                    </tr>
+                    </thead>
+                    <tbody>
                 <% if !@user.properties.nil? && !@user.properties.empty? %>
-                    <% @user.properties.each do |property| %>
-                        <%= property.name %>
+                    <p><% @user.properties.each do |property| %>
+                    <tr>
+                        <td><%= property.updated_at.ctime %></td>
+                        <td><%= property.name %></td>
+                        <td>$<%= property.price %></td>
+                        <td><%= property.rent %></td>
+                        <td><a href="/properties/<%= property.id %>/payments">LINK</a></td>
+                    </tr>
                     <% end %>
                 <% else %>
-                    <p>No properties are owned</p>
+                <tr>
+                    <td colspan="5">No properties are owned</td>
+                </tr>
                 <% end %>
+                </tbody>
+                </table>
             </div>
         </div>
     </body>

@@ -42,35 +42,21 @@
                     </div>
                  </div>
 
-                <h1>Send Money</h1>
+                <h1>Start Auction</h1>
                 <br>
-                <form action="/payments/send" method="post">
-                    <label for="payer_account">Payer:</label>
-                    <input id="payer_account" type="text" name="payment[payer_account]" value="<%= @user.account_number %>" readonly>
-                    <br><br>
-                    <label class="required" for="payee_account">Payee:</label>
-                    <input id="payee_account" type="text" name="payment[payee_account]">
-                    <br><br>
-                    <label class="required" for="amount">Amount:</label>
-                    <input id="amount" type="number" name="payment[amount]" min="1">
-                    <br><br>
-                    <label class="required" for="description">Description:</label>
-                    <textarea id="description" name="payment[description]"></textarea>
-                    <br><br>
-
-                    <h3 style="text-decoration:none;">Optional Property Fields</h3>
-
+                <form action="/auctions/new" method="post">
                     <label for="property_name">Property Name:</label>
-                    <input id="property_name" type="text" name="[property]name">
-                    <label for="property_name">Property Rent:</label>
-                    <input id="property_rent" type="text" name="[property]rent">
+                    <input id="property_name" type="text" name="property[name]">
+                    <br><br>
+                    <label for="time_limit">Time Limit (sec):</label>
+                    <input id="time_limit" type="text" name="auction[time_limit]">
                     <br><br>
                     <p style="color: red;"><%= "#{flash[:error]} <br>" if flash.has?(:error) %></p>
-                    <input type="submit" value="Send">
+                    <input type="submit" value="Start">
                 </form>
             </div>
 
-            <div id="payment-instructions">
+            <div id="auction-instructions">
                 <h2>Instructions</h2>
                 <p>1. Enter the account number of the user you would like to send money to in the <br> payee box. If you are sending money to the bank, enter 'bank' in the payee box.</p>
                 <p>2. Enter the amount in dollars you would like to send.</p>

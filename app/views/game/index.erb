@@ -6,6 +6,19 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     </head>
     <body>
+
+        <header>
+            <div class="nav">
+                <ul style="list-style: none; text-align: center;">
+                    <li class="game-home"><a href="/game">Game Home</a></li>
+                    <li class="send-money"><a href="/payments/send">Send Money</a></li>
+                    <li class="auction"><a href="/auctions/new">Auction</a></li>
+                    <li class="payments"><a href="/payments">Payments</a></li>
+                    <li class="properties"><a href="/properties">View Properties</a></li>
+                </ul>
+            </div>
+        </header>
+
         <div>
             <div class="topright">
                 <a href="/logout" style="text-decoration: none;"><p style="<%= "display: none;" if !logged_in? %>"><%= "logged in as #{current_user.name}" if current_user %></p></a>
@@ -26,17 +39,7 @@
             </div>
         </div>
 
-        <div class="center-block" id="info-block">
-            <div>
-                <h3>Menu</h3>
-                <p><a href="/payments/send">Send Money</a></p>
-                <p><a href="/auctions/new">Start Auction</a></p>
-                <p><a href="/properties">Properties</a></p>
-                <p><a href="/settings">Settings</a></p>
-            </div>
-        </div>
-
-        <div class="center-block" id="recent-payments">
+        <div class="center-block" id="recent-payments" style="margin-top:10%;">
             <div>
                 <h3>Recent Payments</h3>
                 <table>

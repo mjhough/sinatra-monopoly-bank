@@ -2,6 +2,23 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+.nav ul {
+    list-style:none;
+    text-align: center;
+}
+
+.nav li {
+    display: inline-block;
+    padding-right: 8px;
+}
+
+.nav a {
+    border-bottom: 1px solid #888;
+    text-decoration: none;
+    display: block;
+}
+
+
 #welcome {
     text-align: center;
 }
@@ -99,7 +116,7 @@ div div#payment-instructions h2 {
     color: red;
 }
 
-.required:after {
+#user-info.required:after {
     content: " *";
 }
 
@@ -110,11 +127,27 @@ div#recent-payments.center-block table {
 
 div#recent-payments.center-block td, th {
     padding: 0.25rem 1rem;
-    text-align: left;
+    text-align: center;
     border: 1px solid #ccc;
     text-align: center;
 }
 
-div#recent-payments.center-block tbody tr:nth-child(odd) {
+div#user-info.center-block tbody tr:nth-child(odd) {
+    background: #eee;
+}
+
+div#user-info.center-block table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+div#user-info.center-block td, th {
+    padding: 0.25rem 1rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+div#user-info.center-block tbody tr:nth-child(odd) {
     background: #eee;
 }

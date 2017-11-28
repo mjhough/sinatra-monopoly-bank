@@ -39,6 +39,7 @@ class PaymentsController < ApplicationController
                 pay_to.save
                 payer.balance -= payment_amount
                 payer.save
+                redirect "/game"
             else
                 flash[:error] = "No such payee with that account number."
                 redirect "/payments/send"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171128010047) do
+ActiveRecord::Schema.define(version: 20171128230755) do
 
   create_table "auctions", force: :cascade do |t|
     t.integer "time_limit"
@@ -41,6 +41,8 @@ ActiveRecord::Schema.define(version: 20171128010047) do
     t.integer "user_id"
     t.integer "auction_id"
     t.integer "game_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_payments", force: :cascade do |t|
