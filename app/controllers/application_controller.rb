@@ -16,4 +16,8 @@ class ApplicationController < Sinatra::Base
     erb :index
   end
 
+  get "/game/new" do
+    clear_game
+    redirect "/game"
+  end
 end

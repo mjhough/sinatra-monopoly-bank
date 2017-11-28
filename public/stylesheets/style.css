@@ -1,3 +1,7 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
 #welcome {
     text-align: center;
 }
@@ -22,9 +26,42 @@
 
 #game-buttons {
     padding: 0.5%;
-    color: red;
 }
 
-#user-buttons {
-    color: blue;
+.topright p {
+    background-color: rgb(23, 176, 82);
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 2%;
+    font-size: 0.8em;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 4px;
+    z-index: 1;
+    cursor: pointer;
+    width: 100px;
+    height: 20px;
+    text-align: center;
+}
+
+.topright p:hover {
+    opacity: 0;
+}
+
+.topright-under p {
+    background-color: rgb(209, 20, 48);
+    color: white;
+    position: absolute;
+    top: 0;
+    right: 2%;
+    font-size: 0.8em;
+    padding: 5px;
+    border: 1px solid;
+    border-radius: 4px;
+    z-index: 0;
+    cursor: pointer;
+    width: 100px;
+    height: 20px;
+    text-align: center;
 }

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Monopoly Bank - Log In</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <div id="login-area">
+                <form action="/login" method="post">
+                    <label for="username">Username:</label>
+                    <input id="username" type="text" name="username">
+                    <br><br>
+                    <label for="password">Password</label>
+                    <input id="password" type="password" name="password">
+                    <br><br>
+                    <input style="cursor:pointer;" id="signup" type="submit" value="Log In">
+                </form>
+                <h3 style="color:red;"><%= flash[:error] if flash.has?(:error) %></h3>
+            </div>
+        </div>
+    </body>
+</html>

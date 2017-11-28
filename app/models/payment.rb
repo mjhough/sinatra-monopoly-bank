@@ -3,4 +3,5 @@ class Payment < ActiveRecord::Base
     has_many :users, through: :user_payments
     belongs_to :property
     belongs_to :auction
+    belongs_to :game
 end

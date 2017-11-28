@@ -10,12 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171127033903) do
+ActiveRecord::Schema.define(version: 20171128000202) do
 
   create_table "auctions", force: :cascade do |t|
     t.integer "time_limit"
     t.integer "property_id"
     t.integer "payment_id"
+    t.integer "game_id"
+  end
+
+  create_table "games", force: :cascade do |t|
   end
 
   create_table "payments", force: :cascade do |t|
@@ -27,6 +31,7 @@ ActiveRecord::Schema.define(version: 20171127033903) do
     t.datetime "updated_at", null: false
     t.integer "property_id"
     t.integer "auction_id"
+    t.integer "game_id"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -35,6 +40,7 @@ ActiveRecord::Schema.define(version: 20171127033903) do
     t.integer "rent"
     t.integer "user_id"
     t.integer "auction_id"
+    t.integer "game_id"
   end
 
   create_table "user_payments", force: :cascade do |t|
@@ -47,6 +53,7 @@ ActiveRecord::Schema.define(version: 20171127033903) do
     t.string "username"
     t.string "password_digest"
     t.string "account_number", limit: 5
+    t.integer "game_id"
   end
 
 end

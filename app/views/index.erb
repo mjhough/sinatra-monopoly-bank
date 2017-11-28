@@ -3,23 +3,36 @@
     <head>
         <title>The Monopoly Bank - Home</title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     </head>
     <body>
+        <div class="topright">
+            <a href="/logout" style="text-decoration: none;"><p style="<%= "display: none;" if !logged_in? %>"><%= "#{current_user.name} is logged in" if current_user %></p></a>
+        </div>
+        <div class="topright-under">
+            <p style="<%= "display: none;" if !logged_in? %>"><%= "log out" %></p>
+        </div>
+
         <div id="buttons">
-            <div id="game-buttons">
+            <div id="game-buttons" style="<%= "display: none;" if !logged_in? %>">
                 <form action="/game/new">
-                    <input id="new_game" type="submit" value="New Game">
+                    <input style="cursor:pointer;" id="new_game" type="submit" value="New Game">
                 </form>
                 <form action="/game">
-                    <input id="continue_game" type="submit" value="Continue Game">
+                    <input style="cursor:pointer;" id="continue_game" type="submit" value="Continue Game">
                 </form>
             </div>
-            <div id="user-buttons">
-                <form action="/user/signup">
-                    <input id="signup" type="submit" value="Sign Up">
+            <div id="user-buttons" style="<%= "display: none;" if logged_in? %>">
+                <form action="/signup">
+                    <input style="cursor:pointer;" id="signup" type="submit" value="Sign Up">
                 </form>
-                <form action="/user/login">
-                    <input id="login" type="submit" value="Log In">
+                <form action="/login">
+                    <input style="cursor:pointer;" id="login" type="submit" value="Log In">
+                </form>
+            </div>
+            <div id="user-buttons" style="<%= "display: none;" if !logged_in? %>">
+                <form action="/game">
+                    <input style="cursor:pointer;" id="join_game" type="submit" value="Join Game">
                 </form>
             </div>
         </div>
@@ -27,9 +40,9 @@
         <div id="welcome">
             <h1>Welcome to The Monopoly Bank</h1>
             <h2>Instructions for creating a new game:</h2>
-            <p>1. Each user must <a href="/users/signup">sign up</a> to be able to access the game</p>
+            <p>1. Each user must <a href="/signup">sign up</a> or <a href="/login">login</a> to be able to access the game</p>
             <p>2. One user should click the <a href="/game/new">create game</a> link on this page</p>
-            <p>3. Play the game!</p>
+            <p>3. Play the game by clicking <a href="/game">join game</a>!</p>
         </div>
 
         <div id="monopoly-man">
