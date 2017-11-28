@@ -98,3 +98,7 @@ div div#payment-instructions h2 {
     margin-top: 2%;
     color: red;
 }
+
+.required:after {
+    content: " *";
+}

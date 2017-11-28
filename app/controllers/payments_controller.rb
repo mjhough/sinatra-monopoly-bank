@@ -1,7 +1,51 @@
 class PaymentsController < ApplicationController
 
     get "/payments/send" do
+        @users = User.where(game_id: current_game.id)
         @user = current_user
         erb :"/payments/send"
+    end
+
+    post "/payments/send" do
+        payee_account = params[:payment][:payee_account]
+        payment_amount = params[:payment][:amount].to_i
+        payer = current_user
+        @users = User.where(game_id: current_game)
+
+        pay_to = @users.detect {|user| user.account_number == payee_account}
+
+        if params[:payment].all? {|param, value| !value.empty?}
+            if !params[:property][:name].empty?
+                if !params[:property][:rent].empty?
+                    property = Property.find_or_create_by(name: params[:property][:name])
+                    property.rent = params[:property][:rent].to_i
+                    property.price = payment_amount
+                    property.user = payer
+                    property.game = current_game
+                    property.save
+                else
+                    flash[:error] = "You forgot to complete the property rent field."
+                    redirect "/payments/send"
+                end
+            end
+            if !pay_to.nil? && pay_to != payer
+                payment = Payment.create(params[:payment])
+                payment.property = property if property
+                payment.users << payer
+                payment.users << pay_to
+                payment.game = current_game
+                payment.save
+                pay_to.balance += payment_amount
+                pay_to.save
+                payer.balance -= payment_amount
+                payer.save
+            else
+                flash[:error] = "No such payee with that account number."
+                redirect "/payments/send"
+            end
+        else
+            flash[:error] = "Please complete all required fields."
+            redirect "/payments/send"
+        end
     end
 end

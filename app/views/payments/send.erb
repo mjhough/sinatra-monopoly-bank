@@ -17,18 +17,39 @@
 
         <div id="user-info" class="center-block">
             <div>
+
+                <div id="users-in-game" class="topleft">
+                    <div>
+                        <h3>Users In Game</h3>
+                        <ul>
+                            <% @users.each do |user| %>
+                                <li><p><a href="/users/<%= user.id %>"><p><%= user.name %></a> - $<%= user.balance %></p></li>
+                            <% end %>
+                        </ul>
+                    </div>
+                 </div>
+
                 <h1>Send Money</h1>
                 <br>
                 <form action="/payments/send" method="post">
                     <label for="payer_account">Payer:</label>
-                    <input id="payer_account" type="text" name="payer_account" value="<%= @user.account_number %>" readonly>
+                    <input id="payer_account" type="text" name="payment[payer_account]" value="<%= @user.account_number %>" readonly>
                     <br><br>
-                    <label for="payee_account">Payee:</label>
-                    <input id="payee_account" type="text" name="payee_account">
+                    <label class="required" for="payee_account">Payee:</label>
+                    <input id="payee_account" type="text" name="payment[payee_account]">
                     <br><br>
-                    <label for="amount">Amount:</label>
-                    <input id="amount" type="number" name="amount" min="1">
+                    <label class="required" for="amount">Amount:</label>
+                    <input id="amount" type="number" name="payment[amount]" min="1">
                     <br><br>
+                    <label class="required" for="description">Description:</label>
+                    <textarea id="description" name="payment[description]"></textarea>
+                    <br><br>
+                    <label for="property_name">Property Name:</label>
+                    <input id="property_name" type="text" name="[property]name">
+                    <label for="property_name">Property Rent:</label>
+                    <input id="property_rent" type="text" name="[property]rent">
+                    <br><br>
+                    <p style="color: red;"><%= "#{flash[:error]} <br>" if flash.has?(:error) %></p>
                     <input type="submit" value="Send">
                 </form>
             </div>
@@ -37,6 +58,8 @@
                 <h2>Instructions</h2>
                 <p>1. Enter the account number of the user you would like to send money to in the <br> payee box. If you are sending money to the bank, enter 'bank' in the payee box.</p>
                 <p>2. Enter the amount in dollars you would like to send.</p>
+                <p>3. Enter the name of the property you would like to buy (IF ANY).</p>
+                <p>4. Enter the payment description.</p>
             </div>
         </div>
     </body>
