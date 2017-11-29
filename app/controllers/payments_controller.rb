@@ -1,9 +1,13 @@
 class PaymentsController < ApplicationController
 
     get "/payments/send" do
-        @users = User.where(game_id: current_game.id)
-        @user = current_user
-        erb :"/payments/send"
+        if logged_in?
+            @users = User.where(game_id: current_game.id)
+            @user = current_user
+            erb :"/payments/send"
+        else
+            redirect "/login"
+        end
     end
 
     post "/payments/send" do

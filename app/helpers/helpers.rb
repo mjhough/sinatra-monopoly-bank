@@ -18,6 +18,10 @@ module Helpers
 
         def clear_game
             if game_exists?
+                User.all.each do |user|
+                    user.balance = 15000000
+                    user.save
+                end
                 Auction.destroy_all
                 Property.destroy_all
                 Payment.destroy_all
@@ -25,6 +29,17 @@ module Helpers
             else
                 raise "No game found"
             end
+        end
+
+        def auction_over?(auction_id)
+            auction = Auction.find(params[:id])
+            waiting_on.empty?
+        end
+
+        def waiting_on
+            users_in_auction = User.where(auction: @auction)
+            users_in_game = User.where(game: current_game)
+            users_in_game - users_in_auction
         end
     end
 end
