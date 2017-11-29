@@ -3,5 +3,6 @@ class User < ActiveRecord::Base
     has_many :payments, through: :user_payments
     has_many :properties
     belongs_to :game
+    belongs_to :bidder
     has_secure_password
 end
