@@ -16,7 +16,11 @@ class PaymentsController < ApplicationController
         payer = current_user
         @users = User.where(game_id: current_game)
 
-        pay_to = @users.detect {|user| user.account_number == payee_account}
+        if !is_bank?
+            pay_to = @users.detect {|user| user.account_number == payee_account}
+        else
+            pay_to = User.find_by(name: "bank")
+        end
 
         if params[:payment].all? {|param, value| !value.empty?}
             if !params[:property][:name].empty?

@@ -35,7 +35,24 @@ class AuctionsController < ApplicationController
                 @auction.in_progress = false
                 @auction.save
                 if current_user == @winner
-                    "Congratulations!"
+                    property = Property.where(auction: @auction).first
+                    property.rent = params[:property][:rent].to_i
+                    property.price = payment_amount
+                    property.user = payer
+                    property.game = current_game
+                    property.save
+
+                payment = Payment.create(params[:payment])
+                payment.property = property if property
+                payment.users << payer
+                payment.users << pay_to
+                payment.game = current_game
+                payment.save
+                pay_to.balance += payment_amount
+                pay_to.save
+                payer.balance -= payment_amount
+                payer.save
+
                     # redirect "/auctions/winner"
                 else
                     "Loser!"
@@ -62,6 +79,12 @@ class AuctionsController < ApplicationController
         auction.bidders << bidder
         auction.save
         bidder.save
+        property = Property.find_or_create_by(params[:property])
+        payment = Payment.find_or_create_by(payer_account: current_user.account_number, amount: auctions.highest_bid, description: "AUCTION: For #{property.name}.")
+        property.auction = auction
+        payment.auction = auction
+        property.save
+        payment.save
         redirect "/auctions/#{auction.id}"
     end
 end 

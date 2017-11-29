@@ -27,6 +27,8 @@ module Helpers
                 Payment.destroy_all
                 Game.destroy_all
                 Bidder.destroy_all
+
+                User.create(name: "Bank", username: "bank", password: "do! not! login! with! this! account!", account_number: rand(10**10).to_s)
             end
         end
 
@@ -43,6 +45,10 @@ module Helpers
 
         def in_progress_auction
             Auction.where(in_progress: true).first
+        end
+
+        def is_bank?(payee_account)
+            payee_account.downcase == "bank"
         end
     end
 end
