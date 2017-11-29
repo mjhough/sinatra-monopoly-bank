@@ -18,6 +18,31 @@ body {
     display: block;
 }
 
+#bidding-information {
+    width: 30%;
+    margin: auto;
+    padding: 10px;
+}
+
+#waiting-on {
+    width: 20%;
+    float: left;
+}
+
+#bid-timer p {
+    color: red;
+}
+
+#user-bid {
+    width: 20%;
+    margin-left: 15%;
+    float: right;
+}
+
+#user-bid p {
+    color: rgb(23, 176, 82);
+}
+
 
 #welcome {
     text-align: center;
