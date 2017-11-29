@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129052151) do
+ActiveRecord::Schema.define(version: 20171129064349) do
 
   create_table "auctions", force: :cascade do |t|
     t.integer "time_limit"
     t.integer "property_id"
     t.integer "payment_id"
     t.integer "game_id"
-    t.integer "highest_bid"
+    t.integer "highest_bid", default: 0
   end
 
   create_table "bidders", force: :cascade do |t|

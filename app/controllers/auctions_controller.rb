@@ -26,7 +26,8 @@ class AuctionsController < ApplicationController
             if !auction_over?(@auction.id)
                 erb :"auctions/show"
             else
-                @winner = User.where(bid: @auction.highest_bid)
+                winning_bidder = Bidder.where(bid: @auction.highest_bid).first
+                @winner = winning_bidder.user
                 if current_user == @winner
                     "Congratulations!"
                     # redirect "/auctions/winner"
@@ -48,8 +49,8 @@ class AuctionsController < ApplicationController
         else
             bidder.update(bid: params[:bid])
         end
-        if auction.highest_bid && params[:bid] > auction.highest_bid
-            auction.highest_bid = params[:bid]
+        if params[:bid].to_i > auction.highest_bid
+            auction.highest_bid = params[:bid].to_i
         end
         auction.users << current_user
         auction.bidders << bidder
