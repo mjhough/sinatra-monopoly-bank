@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129064349) do
+ActiveRecord::Schema.define(version: 20171129065829) do
 
   create_table "auctions", force: :cascade do |t|
     t.integer "time_limit"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20171129064349) do
     t.integer "payment_id"
     t.integer "game_id"
     t.integer "highest_bid", default: 0
+    t.boolean "in_progress", default: true
   end
 
   create_table "bidders", force: :cascade do |t|

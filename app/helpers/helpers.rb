@@ -26,8 +26,7 @@ module Helpers
                 Property.destroy_all
                 Payment.destroy_all
                 Game.destroy_all
-            else
-                raise "No game found"
+                Bidder.destroy_all
             end
         end
 
@@ -40,6 +39,10 @@ module Helpers
             users_in_auction = User.where(auction: @auction)
             users_in_game = User.where(game: current_game)
             users_in_game - users_in_auction
+        end
+
+        def in_progress_auction
+            Auction.where(in_progress: true).first
         end
     end
 end

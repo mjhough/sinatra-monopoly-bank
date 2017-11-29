@@ -2,19 +2,23 @@ class AuctionsController < ApplicationController
     
     get "/auctions/new" do
         if logged_in?
-            @users = User.all
-            erb :"auctions/new"
+            if !in_progress_auction
+                @users = User.all
+                erb :"auctions/new"
+            else
+                redirect "/auctions/#{in_progress_auction.id}"
+            end
         else
             redirect "/login"
         end
     end
 
     post "/auctions/new" do
-            auction = Auction.create
-            auction.game = current_game
-            auction.property = Property.find_or_create_by(params[:property])
-            auction.save
-            redirect "/auctions/#{auction.id}"
+        auction = Auction.create
+        auction.game = current_game
+        auction.property = Property.find_or_create_by(params[:property])
+        auction.save
+        redirect "/auctions/#{auction.id}"
     end
 
     get "/auctions/:id" do
@@ -28,6 +32,8 @@ class AuctionsController < ApplicationController
             else
                 winning_bidder = Bidder.where(bid: @auction.highest_bid).first
                 @winner = winning_bidder.user
+                @auction.in_progress = false
+                @auction.save
                 if current_user == @winner
                     "Congratulations!"
                     # redirect "/auctions/winner"
