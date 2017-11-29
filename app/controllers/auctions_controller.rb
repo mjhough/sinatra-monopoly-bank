@@ -3,7 +3,7 @@ class AuctionsController < ApplicationController
     get "/auctions/new" do
         if logged_in?
             if !in_progress_auction
-                @users = User.all
+                @users = User.where(game_id: current_game.id)
                 erb :"auctions/new"
             else
                 redirect "/auctions/#{in_progress_auction.id}"
@@ -16,14 +16,29 @@ class AuctionsController < ApplicationController
     post "/auctions/new" do
         auction = Auction.create
         auction.game = current_game
-        auction.property = Property.find_or_create_by(params[:property])
+        property = Property.find_or_create_by(params[:property]) # Creates a property with a name and rent.
+        auction.property = property
         auction.save
+        property.auction = auction
+        property.save
         redirect "/auctions/#{auction.id}"
+    end
+
+    get "/auctions/winner" do
+        @users = User.where(game_id: current_game.id)
+        @property = Property.last
+        erb :"auctions/winner"
+    end
+
+    get "/auctions/loser" do
+        @users = User.where(game_id: current_game.id)
+        @property = Property.last
+        erb :"auctions/loser"
     end
 
     get "/auctions/:id" do
         if logged_in?
-            @users = User.all
+            @users = User.where(game_id: current_game.id)
             @bidder = Bidder.find_by(user: current_user, auction: Auction.find(params[:id]))
             @auction = Auction.find(params[:id])
             @waiting_on = waiting_on
@@ -36,27 +51,24 @@ class AuctionsController < ApplicationController
                 @auction.save
                 if current_user == @winner
                     property = Property.where(auction: @auction).first
-                    property.rent = params[:property][:rent].to_i
-                    property.price = payment_amount
-                    property.user = payer
+                    property.user = @winner
                     property.game = current_game
+                    property.price = @auction.highest_bid
+
+                    payment = Payment.where(auction: @auction).first
+                    payment.property = property
+                    payment.users << @winner
+                    payment.users << User.find_by(name: "bank")
+                    payment.game = current_game
+                    payment.save
                     property.save
+                    
+                    @winner.balance -= @auction.highest_bid
+                    @winner.save
 
-                payment = Payment.create(params[:payment])
-                payment.property = property if property
-                payment.users << payer
-                payment.users << pay_to
-                payment.game = current_game
-                payment.save
-                pay_to.balance += payment_amount
-                pay_to.save
-                payer.balance -= payment_amount
-                payer.save
-
-                    # redirect "/auctions/winner"
+                    redirect "/auctions/winner"
                 else
-                    "Loser!"
-                    # redirect "/auctions/loser" 
+                    redirect "/auctions/loser" 
                 end
             end
         else
@@ -64,7 +76,8 @@ class AuctionsController < ApplicationController
         end
     end
 
-    post "/auctions/:id" do
+    post "/auctions/:id" do # PROBLEM. PARAMS => {"bid"=>"9000000", "id"=>"17"}
+        raise params.inspect
         auction = Auction.find(params[:id])
         bidder = Bidder.find_by(user: current_user, auction: Auction.find(params[:id]))
         if !bidder
@@ -79,8 +92,8 @@ class AuctionsController < ApplicationController
         auction.bidders << bidder
         auction.save
         bidder.save
-        property = Property.find_or_create_by(params[:property])
-        payment = Payment.find_or_create_by(payer_account: current_user.account_number, amount: auctions.highest_bid, description: "AUCTION: For #{property.name}.")
+        property = Property.find_or_create_by(params[:property]) # PROBLEM CODE!
+        payment = Payment.find_or_create_by(payee_account: User.find_by(name: "bank").account_number, payer_account: current_user.account_number, amount: auction.highest_bid, description: "AUCTION: For #{property.name}.")
         property.auction = auction
         payment.auction = auction
         property.save

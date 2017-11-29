@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>The Monopoly Bank - Winner!</title>
+        <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    </head>
+    <body>
+
+        <header>
+            <div class="nav">
+                <ul style="list-style: none; text-align: center;">
+                    <li class="game-home"><a href="/game">Game Home</a></li>
+                    <li class="send-money"><a href="/payments/send">Send Money</a></li>
+                    <li class="auction"><a href="/auctions/new">Auction</a></li>
+                    <li class="payments"><a href="/payments">Payments</a></li>
+                    <li class="properties"><a href="/properties">View Properties</a></li>
+                </ul>
+            </div>
+        </header>
+
+        <div>
+            <div class="topright">
+                <a href="/logout" style="text-decoration: none;"><p style="<%= "display: none;" if !logged_in? %>"><%= "Logged in" %></p></a>
+            </div>
+            <div class="topright-under">
+                <p style="<%= "display: none;" if !logged_in? %>"><%= "log out" %></p>
+            </div>
+        </div>
+
+        <div id="users-in-game" class="topleft">
+            <div>
+                <h3>Users In Game</h3>
+                <ul>
+                <% @users.each do |user| %>
+                    <li><p><a href="/users/<%= user.id %>"><p><%= user.name %></a> - $<%= user.balance %></p></li>
+                <% end %>
+                </ul>
+            </div>
+        </div>
+
+        <div class="center-block" id="recent-payments" style="margin-top:10%;">
+            <div>
+                <h1>You lost the auction for <%= @property.name %></h1>
+                <h3 style="text-decoration:none;">Unfortunately, you lost the auction for <%= binding.pry %>. The winner paid <%= @property.price %> for it.</h3>
+                <h4><a href="/game">Go Home</a></h4>
+            </div>
+        </div>
+    </body>
+</html>
