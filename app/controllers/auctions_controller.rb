@@ -23,7 +23,18 @@ class AuctionsController < ApplicationController
             @bidder = Bidder.find_by(user: current_user, auction: Auction.find(params[:id]))
             @auction = Auction.find(params[:id])
             @waiting_on = waiting_on
-            erb :"auctions/show"
+            if !auction_over?(@auction.id)
+                erb :"auctions/show"
+            else
+                @winner = User.where(bid: @auction.highest_bid)
+                if current_user == @winner
+                    "Congratulations!"
+                    # redirect "/auctions/winner"
+                else
+                    "Loser!"
+                    # redirect "/auctions/loser" 
+                end
+            end
         else
             redirect "/login"
         end
@@ -36,6 +47,9 @@ class AuctionsController < ApplicationController
             bidder = Bidder.create(user: current_user, bid: params[:bid], auction: Auction.find(params[:id]))
         else
             bidder.update(bid: params[:bid])
+        end
+        if auction.highest_bid && params[:bid] > auction.highest_bid
+            auction.highest_bid = params[:bid]
         end
         auction.users << current_user
         auction.bidders << bidder
