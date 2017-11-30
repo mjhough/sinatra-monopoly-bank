@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>The Monopoly Bank - Payment #<%= @payment.id %></title>
+        <title>The Monopoly Bank - <%= @property.name %></title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     </head>
@@ -41,8 +41,8 @@
 
         <div class="center-block" id="recent-payments" style="margin-top:10%;">
             <div>
-                <h1>Payment #<%= @payment.id %></h1>
-                <% if @payment != Payment.find_by(auction: in_progress_auction) || @payment.auction == nil %>
+                <h1><%= @property.name %></h1>
+                <% if @property != Property.find_by(auction: in_progress_auction) || @payment.auction == nil %>
                     <p>(<%= @payment.created_at %>)</>
                     <h4>Amount: $<%= @payment.amount %></h4>
                     <h4>Payer: <a href="/users/<%= @payment.users[0].id %>"><%= @payment.users[0].name %> (<%= @payment.users[0].username %>)</a></h4>
@@ -52,7 +52,7 @@
                     <% end %>
                     <h4>Description: <%= @payment.description %></h4>
                 <% else %>
-                    <h3>You can't view the information here because an auction for this payment is in progress</h3>
+                    <h3>You can't view the information here because an auction for this property is in progress</h3>
                 <% end %>
             </div>
         </div>

@@ -57,7 +57,7 @@
                     <% @properties.reverse.each do |property| %>
                         <tr>
                             <td><%= property.created_at.ctime %></td>
-                            <td><%= property.name %></td>
+                            <td><a href=<%= "/properties/#{property.id}" if property.name %>><%= property.name %></a></td>
                             <td>$<%= property.price %></td>
                             <td><%= property.user.name if property.user %></td>
                             <td><a href="properties/<%= property.id %>/payments">LINK</a></td>

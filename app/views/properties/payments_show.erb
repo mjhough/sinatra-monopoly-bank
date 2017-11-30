@@ -65,7 +65,7 @@
                             <td><%= payment.users[1].name %></td>
                             <td><%= payment.property.name unless payment.property.nil? %></td>
                             <td><%= payment.description %></td>
-                            <td><a href="payments/<%= payment.id %>">LINK</a></td>
+                            <td><a href="/payments/<%= payment.id %>">LINK</a></td>
                         <% else %>
                             <td colspan="6">An auction for this payment is in progress</td>
                         <% end %>

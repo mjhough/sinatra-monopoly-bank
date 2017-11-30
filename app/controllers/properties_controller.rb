@@ -8,7 +8,13 @@ class PropertiesController < ApplicationController
 
     get "/properties/:id/payments" do
         @users = User.where(game: current_game)
-        @payments = Payment.find_by(property: Property.find(params[:id]))
+        @payments = Payment.where(property: Property.find(params[:id]))
         erb :"properties/payments_show"
+    end
+
+    get "/properties/:id/" do
+        @users = User.where(game: current_game)
+        @property = Property.find(params[:id])
+        erb :"properties/show"
     end
 end
