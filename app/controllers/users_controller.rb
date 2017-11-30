@@ -10,9 +10,14 @@ class UsersController < ApplicationController
 
     post "/signup" do
         if params.all? {|param, value| !value.empty?}
-            user = User.create(params)
-            session[:user_id] = user.id
-            redirect "/"
+            if !username_exists?(params[:username])
+                user = User.create(params)
+                session[:user_id] = user.id
+                redirect "/"
+            else
+                flash[:error] = "That username is taken."
+                redirect "/signup"
+            end
         else
             flash[:error] = "Please fill in all the boxes."
             redirect "/signup"
