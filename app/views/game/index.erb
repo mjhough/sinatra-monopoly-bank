@@ -57,7 +57,7 @@
                 <% if !@payments.nil? && !@payments.empty? %>    
                     <p><% @payments[0..12].reverse.each do |payment| %>
                         <tr>
-                        <% if payment != Payment.find_by(auction: in_progress_auction) %>
+                        <% if payment != Payment.find_by(auction: in_progress_auction) || payment.auction == nil %>
                             <td><%= payment.created_at.ctime %></td>
                             <td>$<%= payment.amount %></td>
                             <td><%= payment.users[0].name %></td>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171129065829) do
+ActiveRecord::Schema.define(version: 20171130034522) do
 
   create_table "auctions", force: :cascade do |t|
     t.integer "time_limit"
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20171129065829) do
   create_table "properties", force: :cascade do |t|
     t.string "name"
     t.integer "price"
-    t.integer "rent"
     t.integer "user_id"
     t.integer "auction_id"
     t.integer "game_id"
