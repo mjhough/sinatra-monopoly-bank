@@ -1,3 +1,14 @@
 class PropertiesController < ApplicationController
 
+    get "/properties" do
+        @users = User.where(game: current_game)
+        @properties = Property.where(game: current_game)
+        erb :"properties/index"
+    end
+
+    get "/properties/:id/payments" do
+        @users = User.where(game: current_game)
+        @payments = Payment.find_by(property: Property.find(params[:id]))
+        erb :"properties/payments_show"
+    end
 end

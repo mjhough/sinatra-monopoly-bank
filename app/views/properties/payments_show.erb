@@ -63,7 +63,7 @@
                             <td>$<%= payment.amount %></td>
                             <td><%= payment.users[0].name %></td>
                             <td><%= payment.users[1].name %></td>
-                            <td><a href=<%= "/properties/#{payment.property.id}" if payment.property %>><%= payment.property.name unless payment.property.nil? %></a></td>
+                            <td><%= payment.property.name unless payment.property.nil? %></td>
                             <td><%= payment.description %></td>
                             <td><a href="payments/<%= payment.id %>">LINK</a></td>
                         <% else %>
@@ -73,7 +73,7 @@
                     <% end %>
                 <% else %>
                 <tr>
-                    <td colspan="6">No payments have been made</td>
+                    <td colspan="7">No payments have been made</td>
                 </tr>
                 <% end %>
                 </tbody>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>The Monopoly Bank - Payments</title>
+        <title>The Monopoly Bank - Properties</title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
     </head>
@@ -41,39 +41,31 @@
 
         <div class="center-block" id="recent-payments" style="margin-top:10%;">
             <div>
-                <h3>All Payments</h3>
+                <h3>All Properties</h3>
                 <table>
                     <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Payer</th>
-                        <th>Payee</th>
-                        <th>Property</th>
-                        <th>Description</th>
-                        <th>View</th>
+                        <th>Date Purchased</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Owner</th>
+                        <th>Payments</th>
                     </tr>
                     </thead>
                     <tbody>
-                <% if !@payments.nil? && !@payments.empty? %>    
-                    <% @payments.reverse.each do |payment| %>
+                <% if !@properties.nil? && !@properties.empty? %>    
+                    <% @properties.reverse.each do |property| %>
                         <tr>
-                        <% if payment != Payment.find_by(auction: in_progress_auction) || payment.auction == nil %>
-                            <td><%= payment.created_at.ctime %></td>
-                            <td>$<%= payment.amount %></td>
-                            <td><%= payment.users[0].name %></td>
-                            <td><%= payment.users[1].name %></td>
-                            <td><a href=<%= "/properties/#{payment.property.id}" if payment.property %>><%= payment.property.name unless payment.property.nil? %></a></td>
-                            <td><%= payment.description %></td>
-                            <td><a href="payments/<%= payment.id %>">LINK</a></td>
-                        <% else %>
-                            <td colspan="6">An auction for this payment is in progress</td>
-                        <% end %>
+                            <td><%= property.created_at.ctime %></td>
+                            <td><%= property.name %></td>
+                            <td>$<%= property.price %></td>
+                            <td><%= property.user.name if property.user %></td>
+                            <td><a href="properties/<%= property.id %>/payments">LINK</a></td>
                         </tr>
                     <% end %>
                 <% else %>
                 <tr>
-                    <td colspan="6">No payments have been made</td>
+                    <td colspan="6">No properties are owned</td>
                 </tr>
                 <% end %>
                 </tbody>
