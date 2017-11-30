@@ -43,14 +43,10 @@
             <div>
                 <h1><%= @property.name %></h1>
                 <% if @property != Property.find_by(auction: in_progress_auction) || @payment.auction == nil %>
-                    <p>(<%= @payment.created_at %>)</>
-                    <h4>Amount: $<%= @payment.amount %></h4>
-                    <h4>Payer: <a href="/users/<%= @payment.users[0].id %>"><%= @payment.users[0].name %> (<%= @payment.users[0].username %>)</a></h4>
-                    <h4>Payee: <a href="/users/<%= @payment.users[1].id %>"><%= @payment.users[1].name %> <%= "#{(@payment.users[1].username)}" unless @payment.users[1].username == "bank"%></a></h4>
-                    <% if @payment.property %>
-                        <h4>Property: <a href="/properties/<%= @payment.property.id %>"><%= @payment.property.name %></a></h4>
-                    <% end %>
-                    <h4>Description: <%= @payment.description %></h4>
+                    <p>(<%= @property.updated_at %>)</>
+                    <h4>Price: $<%= @property.price %></h4>
+                    <h4>Owner: <a href="/users/<%= @property.user.id %>"><%= @property.user.name %> (<%= @property.user.username %>)</a></h4>
+                    <h4><a href="/properties/<%= @property.id %>/payments">View Payments</a></h4>
                 <% else %>
                     <h3>You can't view the information here because an auction for this property is in progress</h3>
                 <% end %>

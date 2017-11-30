@@ -59,8 +59,8 @@
                             <td><%= property.created_at.ctime %></td>
                             <td><a href=<%= "/properties/#{property.id}" if property.name %>><%= property.name %></a></td>
                             <td>$<%= property.price %></td>
-                            <td><%= property.user.name if property.user %></td>
-                            <td><a href="properties/<%= property.id %>/payments">LINK</a></td>
+                            <td><a href="/users/<%= property.user.id if property.user %>"><%= property.user.name if property.user %></a></td>
+                            <td><a href="/properties/<%= property.id %>/payments">LINK</a></td>
                         </tr>
                     <% end %>
                 <% else %>
