@@ -63,4 +63,10 @@ class PaymentsController < ApplicationController
             redirect "/payments/send"
         end
     end
+
+    get "/payments/:id" do
+        @users = User.where(game_id: current_game.id)
+        @payment = Payment.find(params[:id])
+        erb :"payments/show"
+    end
 end

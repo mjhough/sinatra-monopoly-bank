@@ -41,43 +41,17 @@
 
         <div class="center-block" id="recent-payments" style="margin-top:10%;">
             <div>
-                <h3>All Payments</h3>
-                <table>
-                    <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Amount</th>
-                        <th>Payer</th>
-                        <th>Payee</th>
-                        <th>Property</th>
-                        <th>Description</th>
-                        <th>View</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                <% if !@payments.nil? && !@payments.empty? %>    
-                    <p><% @payments.reverse.each do |payment| %>
-                        <tr>
-                        <% if payment != Payment.find_by(auction: in_progress_auction) || payment.auction == nil %>
-                            <td><%= payment.created_at.ctime %></td>
-                            <td>$<%= payment.amount %></td>
-                            <td><%= payment.users[0].name %></td>
-                            <td><%= payment.users[1].name %></td>
-                            <td><%= payment.property.name unless payment.property.nil? %></td>
-                            <td><%= payment.description %></td>
-                            <td><a href="payments/<%= payment.id %>">LINK</a></td>
-                        <% else %>
-                            <td colspan="6">An auction for this payment is in progress</td>
-                        <% end %>
-                        </tr>
-                    <% end %>
+                <h1>Payment #<%= @payment.id %></h1>
+                <% if @payment != Payment.find_by(auction: in_progress_auction) || @payment.auction == nil %>
+                    <p>(<%= @payment.created_at %>)</p>
+                    <h4>Amount: $<%= @payment.amount %></h4>
+                    <h4>Payer: <a href="/users/<%= @payment.users[0].id %>"><%= @payment.users[0].name %> (<%= @payment.users[0].username %>)</a></h4>
+                    <h4>Payee: <a href="/users/<%= @payment.users[1].id %>"><%= @payment.users[1].name %> <%= "#{(@payment.users[1].username)}" unless @payment.users[1].username == "bank"%></a></h4>
+                    <h4>Property: <a href="/properties/<%= @payment.property.id %>"><%= @payment.property.name %></a></h4>
+                    <h4>Description: <%= @payment.description %></h4>
                 <% else %>
-                <tr>
-                    <td colspan="6">No payments have been made</td>
-                </tr>
+                    <h3>You can't view the information here because an auction for this payment is in progress</h3>
                 <% end %>
-                </tbody>
-                </table>
             </div>
         </div>
     </body>
