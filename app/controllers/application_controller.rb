@@ -37,4 +37,19 @@ class ApplicationController < Sinatra::Base
       redirect "/"
     end
   end
+
+  get "/settings" do
+    @users = User.where(game: current_game)
+    erb :"game/settings"
+  end
+
+  patch "/settings" do
+    if params[:settings].all? {|setting, value| !value.empty?}
+      User.update(params[:settings])
+      redirect "/game"
+    else
+      flash[:error] = "Please don't leave the form blank."
+      redirect "/settings"
+    end
+  end
 end

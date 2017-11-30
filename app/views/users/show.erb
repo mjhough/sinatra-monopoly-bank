@@ -27,6 +27,17 @@
             </div>
         </div>
 
+        <div id="users-in-game" class="topleft">
+            <div>
+                <h3>Users In Game</h3>
+                <ul>
+                <% @users.each do |user| %>
+                    <li><p><a href="/users/<%= user.id %>"><p><%= user.name %></a> - $<%= user.balance %></p></li>
+                <% end %>
+                </ul>
+            </div>
+        </div>
+
         <div id="user-info" class="center-block">
             <div>
                 <h1><%= @user.name %> (<%= @user.username %>)</h1>
@@ -44,7 +55,8 @@
                         <th>Payer</th>
                         <th>Payee</th>
                         <th>Property</th>
-                        <th >Description</th>
+                        <th>Description</th>
+                        <th>View</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -53,10 +65,11 @@
                     <tr>
                         <td><%= payment.created_at.ctime %></td>
                         <td>$<%= payment.amount %></td>
-                        <td><%= payment.users[1].name %></td>
-                        <td><%= payment.users[0].name %></td>
-                        <td><%= payment.property.name unless payment.property.nil? %></td>
+                        <td><a href="/users/<%= payment.users[1].id %>"><%= payment.users[1].name %></a></td>
+                        <td><a href="/users/<%= payment.users[0].id %>"><%= payment.users[0].name %></a></td>
+                        <td><a href=<%= "/properties/#{payment.property.id}" if payment.property %>><%= payment.property.name unless payment.property.nil? %></a></td>
                         <td><%= payment.description %></td>
+                        <td><a href="/payments/<%= payment.id %>">LINK</a></td>
                     </tr>
                     <% end %>
                 <% else %>
@@ -82,7 +95,7 @@
                     <p><% @user.properties.reverse.each do |property| %>
                     <tr>
                         <td><%= property.updated_at.ctime %></td>
-                        <td><%= property.name %></td>
+                        <td><a href="/properties/<%= property.id %>"><%= property.name %></a></td>
                         <td>$<%= property.price %></td>
                         <td><a href="/properties/<%= property.id %>/payments">LINK</a></td>
                     </tr>

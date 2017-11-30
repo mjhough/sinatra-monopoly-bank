@@ -59,6 +59,7 @@ class UsersController < ApplicationController
 
     get "/users/:id" do
         if logged_in?
+            @users = User.where(game: current_game)
             @user = User.find(params[:id])
             erb :"users/show"
         else

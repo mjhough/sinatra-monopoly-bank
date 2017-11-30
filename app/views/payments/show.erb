@@ -15,6 +15,7 @@
                     <li class="auction"><a href="/auctions/new">Auction</a></li>
                     <li class="payments"><a href="/payments">Payments</a></li>
                     <li class="properties"><a href="/properties">View Properties</a></li>
+                    <li class="settings"><a href="/settings">Settings</a></li>
                 </ul>
             </div>
         </header>
@@ -45,8 +46,8 @@
                 <% if @payment != Payment.find_by(auction: in_progress_auction) || @payment.auction == nil %>
                     <p>(<%= @payment.created_at %>)</>
                     <h4>Amount: $<%= @payment.amount %></h4>
-                    <h4>Payer: <a href="/users/<%= @payment.users[0].id %>"><%= @payment.users[0].name %> (<%= @payment.users[0].username %>)</a></h4>
-                    <h4>Payee: <a href="/users/<%= @payment.users[1].id %>"><%= @payment.users[1].name %> <%= "#{(@payment.users[1].username)}" unless @payment.users[1].username == "bank"%></a></h4>
+                    <h4>Payer: <a href="/users/<%= @payment.users[1].id %>"><%= @payment.users[1].name %> (<%= @payment.users[1].username %>)</a></h4>
+                    <h4>Payee: <a href="/users/<%= @payment.users[0].id %>"><%= @payment.users[0].name %> (<%= "#{@payment.users[0].username}" unless @payment.users[1].username == "bank"%>)</a></h4>
                     <% if @payment.property %>
                         <h4>Property: <a href="/properties/<%= @payment.property.id %>"><%= @payment.property.name %></a></h4>
                     <% end %>

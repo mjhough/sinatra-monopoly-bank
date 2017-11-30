@@ -15,6 +15,7 @@
                     <li class="auction"><a href="/auctions/new">Auction</a></li>
                     <li class="payments"><a href="/payments">Payments</a></li>
                     <li class="properties"><a href="/properties">View Properties</a></li>
+                    <li class="settings"><a href="/settings">Settings</a></li>
                 </ul>
             </div>
         </header>
@@ -58,11 +59,11 @@
                     <p><% @payments[0..12].reverse.each do |payment| %>
                         <tr>
                         <% if payment != Payment.find_by(auction: in_progress_auction) || payment.auction == nil %>
-                            <td><%= payment.created_at.ctime %></td>
+                            <td><%= payment.created_at.localtime %></td>
                             <td>$<%= payment.amount %></td>
-                            <td><%= payment.users[0].name %></td>
-                            <td><%= payment.users[1].name %></td>
-                            <td><%= payment.property.name unless payment.property.nil? %></td>
+                            <td><a href="/users/<%= payment.users[1].id %>"><%= payment.users[1].name %></a></td>
+                            <td><a href="/users/<%= payment.users[0].id %>"><%= payment.users[0].name %></a></td>
+                            <td><a href="/properties/<%= payment.property.id if payment.property %>"><%= payment.property.name unless payment.property.nil? %></a></td>
                             <td><%= payment.description %></td>
                         <% else %>
                             <td colspan="6">An auction for this payment is in progress</td>
