@@ -51,6 +51,9 @@ th {
     color: rgb(23, 176, 82);
 }
 
+#users-in-game.topleft {
+    list-style: none;
+}
 
 #welcome {
     text-align: center;
@@ -125,7 +128,7 @@ div.topleft {
     border: 2px solid;
     border-radius: 4px;
     z-index: 1;
-    width: 10%;
+    width: 15%;
     display: block;
 }
 

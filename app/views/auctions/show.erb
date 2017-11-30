@@ -28,10 +28,7 @@
             </div>
         </div>
 
-        <div id="auction-info" class="center-block">
-            <div>
-
-                <div id="users-in-game" class="topleft">
+        <div id="users-in-game" class="topleft">
                     <div>
                         <h3>Users In Game</h3>
                         <ul>
@@ -42,6 +39,8 @@
                     </div>
                 </div>
 
+        <div id="auction-info" class="center-block">
+            <div>
                 <h1>Bid on <%= Property.find_by(auction: @auction).name %></h1>
                 <br>
                 <form action="/auctions/<%= @auction.id %>" method="post">
