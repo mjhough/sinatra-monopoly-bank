@@ -33,15 +33,21 @@ class AuctionsController < ApplicationController
     end
 
     get "/auctions/winner" do
-        @users = User.where(game_id: current_game.id)
         @property = Property.last
-        erb :"auctions/winner"
+        if logged_in? && @property == current_user.properties.last
+            @users = User.where(game_id: current_game.id)
+            erb :"auctions/winner"
+        else
+            redirect "/game"
+        end
     end
 
     get "/auctions/loser" do
-        @users = User.where(game_id: current_game.id)
-        @property = Property.last
-        erb :"auctions/loser"
+        if logged_in?
+            @users = User.where(game_id: current_game.id)
+            @property = Property.last
+            erb :"auctions/loser"
+        end
     end
 
     get "/auctions/:id" do
