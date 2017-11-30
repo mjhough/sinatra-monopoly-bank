@@ -45,3 +45,4 @@ bower.json
 # Ignore Byebug command history file.
 .byebug_history
 app/db/development.sqlite
+db/development.sqlite
