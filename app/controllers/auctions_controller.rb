@@ -72,8 +72,9 @@ class AuctionsController < ApplicationController
 
                     payment = Payment.find_by(auction: @auction)
                     payment.update(payee_account: User.find_by(name: "Bank").account_number, payer_account: @winner.account_number, amount: @auction.highest_bid, description: "AUCTION: For #{property.name}.", property: property)
-                    payment.users << User.find_by(name: "Bank")
                     payment.users << @winner
+                    payment.users << User.find_by(name: "Bank")
+                    
                     
                     payment.save
                     property.save

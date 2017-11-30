@@ -1,16 +1,22 @@
 # sinatra-monopoly-bank
-A monopoly bank for players in the form of a Sinatra webapp.
+A monopoly bank for players in the form of a Sinatra webapp. Check it out here http://monopolybank.herokuapp.com
 
-* Set 1 banker
-* Timed auctions
+
+
+* Silent auctions
 * unlimited players
-* Transaction log for transparency
+* Payment log
+* Timestamps
+* Change starting balance
 
 ## Installation & Setup
-To be determined...
+1. Run `bundle install`
+2. Run `rake db:migrate`
+3. Run `shotgun`
+4. Visit `localhost:9393` and play the game!
 
 ## Development Notes
-To be determined...
+If you come across an error or think this can be improved please submit a pull request or let me know via email: matt@hough.tv
 
 ## License
 [MIT license](https://github.com/r-spacex/mission-control/blob/master/LICENSE)

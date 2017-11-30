@@ -61,8 +61,8 @@
                         <% if payment != Payment.find_by(auction: in_progress_auction) || payment.auction == nil %>
                             <td><%= payment.created_at.localtime %></td>
                             <td>$<%= payment.amount %></td>
-                            <td><a href="/users/<%= payment.users[1].id %>"><%= payment.users[1].name %></a></td>
                             <td><a href="/users/<%= payment.users[0].id %>"><%= payment.users[0].name %></a></td>
+                            <td><a href="/users/<%= payment.users[1].id %>"><%= payment.users[1].name %></a></td>
                             <td><a href="/properties/<%= payment.property.id if payment.property %>"><%= payment.property.name unless payment.property.nil? %></a></td>
                             <td><%= payment.description %></td>
                         <% else %>
