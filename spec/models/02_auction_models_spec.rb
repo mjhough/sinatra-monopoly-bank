@@ -9,7 +9,7 @@ describe Auction do
     describe "#property" do
         it 'can assign and access a property' do
             auction = Auction.create(time_limit: 30)
-            property = Property.create(name: "Mayfair", price: 5000, rent: 500)
+            property = Property.create(name: "Mayfair", price: 5000)
             auction.property = property
             auction.save
             expect(Auction.last.property).to eq(property)

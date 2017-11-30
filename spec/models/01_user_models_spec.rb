@@ -21,9 +21,9 @@ describe User do
     describe "#properties" do
         it 'can assign and access multiple properties' do
             user = User.create(name: "Matt", username: "matthough", password: "Password123", account_number: rand(10**10).to_s)
-            property_one = Property.create(name: "Mayfair", price: 5000, rent: 500)
+            property_one = Property.create(name: "Mayfair", price: 5000)
             user.properties << property_one
-            property_two = Property.create(name: "Not Mayfair", price: 1000, rent: 50)
+            property_two = Property.create(name: "Not Mayfair", price: 1000)
             user.properties << property_two
             user.save
             expect(user.properties).to include(property_one)

@@ -13,7 +13,7 @@ describe Payment do
     describe "#property" do
         it 'can assign and access a property' do
             payment = Payment.create(payee_account: "1234567890", payer_account: "0987654321", amount: 5000, description: "Mayfair purchase")
-            property = Property.new(name: "Mayfair", price: 5000, rent: 500)
+            property = Property.new(name: "Mayfair", price: 5000)
             payment.property = property
             payment.save
             expect(Payment.last.property).to eq(property)
