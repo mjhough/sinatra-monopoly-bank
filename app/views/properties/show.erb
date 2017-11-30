@@ -42,7 +42,7 @@
         <div class="center-block" id="recent-payments" style="margin-top:10%;">
             <div>
                 <h1><%= @property.name %></h1>
-                <% if @property != Property.find_by(auction: in_progress_auction) || @payment.auction == nil %>
+                <% if @property != Property.find_by(auction: in_progress_auction) || @property.auction == nil %>
                     <p>(<%= @property.updated_at %>)</>
                     <h4>Price: $<%= @property.price %></h4>
                     <h4>Owner: <a href="/users/<%= @property.user.id %>"><%= @property.user.name %> (<%= @property.user.username %>)</a></h4>

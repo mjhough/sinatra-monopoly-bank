@@ -87,7 +87,7 @@ class AuctionsController < ApplicationController
         if params.all? {|param, value| !value.strip.empty?}
             if sufficient_balance?(params[:bid].to_i)
                 @auction = Auction.find(params[:id])
-                if bid_taken?
+                if !bid_taken?
                     bidder = Bidder.find_by(user: current_user, auction: @auction)
                     if !bidder
                         bidder = Bidder.create(user: current_user, bid: params[:bid], auction: @auction)

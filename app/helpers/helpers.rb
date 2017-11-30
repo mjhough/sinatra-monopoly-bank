@@ -54,7 +54,7 @@ module Helpers
         end
 
         def bid_taken?
-            !params[:bid].to_i == @auction.highest_bid || params[:bid].to_i == 0
+            params[:bid].to_i == @auction.highest_bid || params[:bid].to_i == 0
         end
 
         def username_exists?(username)
