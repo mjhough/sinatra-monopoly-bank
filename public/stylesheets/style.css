@@ -156,34 +156,23 @@ div div#payment-instructions h2 {
     content: " *";
 }
 
-div#recent-payments.center-block table {
+.center-block table {
     border-collapse: collapse;
     width: 100%;
 }
 
-div#recent-payments.center-block td, th {
+.center-block td, th {
     padding: 0.25rem 1rem;
     text-align: center;
     border: 1px solid #ccc;
     text-align: center;
 }
 
-div#user-info.center-block tbody tr:nth-child(odd) {
+.center-block tbody tr:nth-child(odd) {
     background: #eee;
 }
 
-div#user-info.center-block table {
+.center-block table {
     border-collapse: collapse;
     width: 100%;
-}
-
-div#user-info.center-block td, th {
-    padding: 0.25rem 1rem;
-    text-align: center;
-    border: 1px solid #ccc;
-    text-align: center;
-}
-
-div#user-info.center-block tbody tr:nth-child(odd) {
-    background: #eee;
 }

@@ -73,8 +73,10 @@ class AuctionsController < ApplicationController
                     @winner.balance -= @auction.highest_bid
                     @winner.save
 
+                    session[:bid_placed] = nil
                     redirect "/auctions/winner"
                 else
+                    session[:bid_placed] = nil
                     redirect "/auctions/loser" 
                 end
             end
@@ -84,40 +86,46 @@ class AuctionsController < ApplicationController
     end
 
     post "/auctions/:id" do
-        if params.all? {|param, value| !value.strip.empty?}
-            if sufficient_balance?(params[:bid].to_i)
-                @auction = Auction.find(params[:id])
-                if !bid_taken?
-                    bidder = Bidder.find_by(user: current_user, auction: @auction)
-                    if !bidder
-                        bidder = Bidder.create(user: current_user, bid: params[:bid], auction: @auction)
+        @auction = Auction.find(params[:id])
+        if !session[:bid_placed]
+            if params.all? {|param, value| !value.strip.empty?}
+                if sufficient_balance?(params[:bid].to_i)
+                    if !bid_taken?
+                        bidder = Bidder.find_by(user: current_user, auction: @auction)
+                        if !bidder
+                            bidder = Bidder.create(user: current_user, bid: params[:bid], auction: @auction)
+                        else
+                            bidder.update(bid: params[:bid])
+                        end
+
+                        user = current_user
+                        user.bidder = bidder
+                        user.save
+
+                        if current_user.bidder.bid > @auction.highest_bid
+                            @auction.highest_bid = current_user.bidder.bid
+                        end
+
+                        @auction.users << current_user
+                        @auction.bidders << bidder
+                        @auction.save
+                        session[:bid_placed] = true
+                        redirect "/auctions/#{@auction.id}"
                     else
-                        bidder.update(bid: params[:bid])
+                        flash[:error] = "Pick another number. That one is taken ;)"
+                        redirect "/auctions/#{params[:id]}"
                     end
-
-                    user = current_user
-                    user.bidder = bidder
-                    user.save
-
-                    if current_user.bidder.bid > @auction.highest_bid
-                        @auction.highest_bid = current_user.bidder.bid
-                    end
-
-                    @auction.users << current_user
-                    @auction.bidders << bidder
-                    @auction.save
-                    redirect "/auctions/#{@auction.id}"
                 else
-                    flash[:error] = "Pick another number. That one is taken ;)"
+                    flash[:error] = "You're too broke to splash that amount of cash."
                     redirect "/auctions/#{params[:id]}"
                 end
             else
-                flash[:error] = "You're too broke to splash that amount of cash."
+                flash[:error] = "If you don't want this property place a bid for $0."
                 redirect "/auctions/#{params[:id]}"
             end
-        else
-            flash[:error] = "If you don't want this property place a bid for $0."
-            redirect "/auctions/#{params[:id]}"
+        elsif session[:bid_placed] && !auction_over?(@auction.id)
+            flash[:error] = "You may only bid once."
+            redirect "/auctions/#{@auction.id}"
         end
     end
 

@@ -42,6 +42,7 @@
         <div id="auction-info" class="center-block">
             <div>
                 <h1>Bid on <%= Property.find_by(auction: @auction).name %></h1>
+                <p style="color:red;">Think carefully. You cannot edit your bid!</p>
                 <br>
                 <form action="/auctions/<%= @auction.id %>" method="post">
                     <label for="bid">Bid Amount:</label>
