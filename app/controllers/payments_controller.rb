@@ -1,9 +1,13 @@
 class PaymentsController < ApplicationController
 
     get "/payments" do
-        @users = User.where(game_id: current_game.id)
-        @payments = Payment.where(game_id: current_game.id)
-        erb :"payments/index"
+        if logged_in?
+            @users = User.where(game_id: current_game.id)
+            @payments = Payment.where(game_id: current_game.id)
+            erb :"payments/index"
+        else
+            redirect "/login"
+        end
     end
 
     get "/payments/send" do
@@ -65,8 +69,12 @@ class PaymentsController < ApplicationController
     end
 
     get "/payments/:id" do
-        @users = User.where(game_id: current_game.id)
-        @payment = Payment.find(params[:id])
-        erb :"payments/show"
+        if logged_in?
+            @users = User.where(game_id: current_game.id)
+            @payment = Payment.find(params[:id])
+            erb :"payments/show"
+        else
+            redirect "/login"
+        end
     end
 end

@@ -39,8 +39,12 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/settings" do
-    @users = User.where(game: current_game)
-    erb :"game/settings"
+    if logged_in? && game_exists?
+      @users = User.where(game: current_game)
+      erb :"game/settings"
+    else
+      redirect "/login"
+    end
   end
 
   patch "/settings" do

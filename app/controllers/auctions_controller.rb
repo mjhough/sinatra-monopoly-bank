@@ -1,7 +1,7 @@
 class AuctionsController < ApplicationController
     
     get "/auctions/new" do
-        if logged_in?
+        if logged_in? && game_exists?
             if !in_progress_auction
                 @users = User.where(game_id: current_game.id)
                 erb :"auctions/new"
@@ -43,15 +43,17 @@ class AuctionsController < ApplicationController
     end
 
     get "/auctions/loser" do
-        if logged_in?
+        if logged_in? && game_exists?
             @users = User.where(game_id: current_game.id)
             @property = Property.last
             erb :"auctions/loser"
+        else
+            redirect "/login"
         end
     end
 
     get "/auctions/:id" do
-        if logged_in?
+        if logged_in? && game_exists?
             @users = User.where(game_id: current_game.id)
             @bidder = Bidder.find_by(user: current_user, auction: Auction.find(params[:id]))
             @auction = Auction.find(params[:id])
@@ -136,11 +138,15 @@ class AuctionsController < ApplicationController
     end
 
     get "/auctions/:id/delete" do
-        auction = Auction.find(params[:id])
-        auction.bidders.destroy_all
-        auction.property.destroy
-        auction.payment.destroy
-        auction.destroy
-        redirect "/game"
+        if logged_in? 
+            auction = Auction.find(params[:id])
+            auction.bidders.destroy_all
+            auction.property.destroy
+            auction.payment.destroy
+            auction.destroy
+            redirect "/game"
+        else
+            redirect "/login"
+        end
     end
 end 
