@@ -24,6 +24,7 @@ class PropertiesController < ApplicationController
         if logged_in?
             @users = User.where(game: current_game)
             @payments = Payment.where(property: Property.find(params[:id]))
+            @property = Property.find(params[:id])
             erb :"properties/payments_show"
         else
             redirect "/login"

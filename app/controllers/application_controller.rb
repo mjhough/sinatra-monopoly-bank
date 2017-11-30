@@ -34,7 +34,7 @@ class ApplicationController < Sinatra::Base
       @payments = Payment.where(game_id: current_game)
       erb :"game/index"
     else
-      redirect "/"
+      redirect "/login"
     end
   end
 
