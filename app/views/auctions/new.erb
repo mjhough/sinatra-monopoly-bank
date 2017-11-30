@@ -48,9 +48,6 @@
                     <label for="property_name">Property Name:</label>
                     <input id="property_name" type="text" name="property[name]">
                     <br><br>
-                    <label for="property_rent">Property Rent:</label>
-                    <input id="property_rent" type="text" name="property[rent]">
-                    <br><br>
                     <p style="color: red;"><%= "#{flash[:error]} <br>" if flash.has?(:error) %></p>
                     <input type="submit" value="Start">
                 </form>

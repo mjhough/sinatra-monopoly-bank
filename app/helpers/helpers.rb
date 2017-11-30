@@ -28,7 +28,7 @@ module Helpers
                 Game.destroy_all
                 Bidder.destroy_all
 
-                User.create(name: "bank", username: "bank", password: "do! not! login! with! this! account!", account_number: rand(10**10).to_s)
+                User.create(name: "Bank", username: "bank", password: "do! not! login! with! this! account!", account_number: rand(10**10).to_s)
             end
         end
 
@@ -38,9 +38,7 @@ module Helpers
         end
 
         def waiting_on
-            users_in_auction = User.where(auction: @auction)
-            users_in_game = User.where(game: current_game)
-            users_in_game - users_in_auction
+            User.where.not(auction: @auction).or(User.where(auction: nil)).where(game: current_game)
         end
 
         def in_progress_auction
@@ -49,6 +47,14 @@ module Helpers
 
         def is_bank?(payee_account)
             payee_account.downcase == "bank"
+        end
+
+        def sufficient_balance?(balance_input)
+            balance_input <= current_user.balance
+        end
+
+        def bid_taken?
+            !params[:bid].to_i == @auction.highest_bid || params[:bid].to_i == 0
         end
     end
 end

@@ -42,7 +42,7 @@
         <div class="center-block" id="recent-payments" style="margin-top:10%;">
             <div>
                 <h1>You won <%= @property.name %> in an auction!</h1>
-                <h3 style="text-decoration:none;">Congratulations you won <%= @property.name %> for <%= @property.price %>!</h3>
+                <h3 style="text-decoration:none;">Congratulations you won <%= @property.name %> for $<%= @property.price.to_s %>!</h3>
                 <h4><a href="/game">Go Home</a></h4>
             </div>
         </div>

@@ -54,19 +54,25 @@
                     </tr>
                     </thead>
                     <tbody>
-                <% if !@payments.nil? && !@payments.empty? %>
-                    <p><% @payments.each do |payment| %>
-                    <tr>
-                        <td><%= payment.created_at.ctime %></td>
-                        <td>$<%= payment.amount %></td>
-                        <td><%= payment.users[1].name %></td>
-                        <td><%= payment.users[0].name %></td>
-                        <td><%= payment.property.name unless payment.property.nil? %></td>
-                        <td><%= payment.description %></td>
-                    </tr>
+                <% if !@payments.nil? && !@payments.empty? %>    
+                    <p><% @payments[0..12].reverse.each do |payment| %>
+                        <tr>
+                        <% if payment != Payment.find_by(auction: in_progress_auction) %>
+                            <td><%= payment.created_at.ctime %></td>
+                            <td>$<%= payment.amount %></td>
+                            <td><%= payment.users[0].name %></td>
+                            <td><%= payment.users[1].name %></td>
+                            <td><%= payment.property.name unless payment.property.nil? %></td>
+                            <td><%= payment.description %></td>
+                        <% else %>
+                            <td colspan="6">An auction for this payment is in progress</td>
+                        <% end %>
+                        </tr>
                     <% end %>
                 <% else %>
-                    <p>No payments have been made</p>
+                <tr>
+                    <td colspan="6">No payments have been made</td>
+                </tr>
                 <% end %>
                 </tbody>
                 </table>

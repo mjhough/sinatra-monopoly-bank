@@ -2,6 +2,10 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+th {
+    font-weight: bold;
+}
+
 .nav ul {
     list-style:none;
     text-align: center;
@@ -27,6 +31,10 @@ body {
 #waiting-on {
     width: 20%;
     float: left;
+}
+
+#auction-cancel {
+    font-size: 0.75em;
 }
 
 #bid-timer p {

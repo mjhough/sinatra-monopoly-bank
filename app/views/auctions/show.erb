@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="refresh" content="5">
         <title>The Monopoly Bank - Send Money</title>
         <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -29,7 +28,7 @@
             </div>
         </div>
 
-        <div id="user-info" class="center-block">
+        <div id="auction-info" class="center-block">
             <div>
 
                 <div id="users-in-game" class="topleft">
@@ -41,13 +40,13 @@
                             <% end %>
                         </ul>
                     </div>
-                 </div>
+                </div>
 
-                <h1>Bid at Auction</h1>
+                <h1>Bid on <%= Property.find_by(auction: @auction).name %></h1>
                 <br>
                 <form action="/auctions/<%= @auction.id %>" method="post">
                     <label for="bid">Bid Amount:</label>
-                    <input id="bid" type="text" name="bid">
+                    <input id="bid" type="number" name="bid" min="0" step="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
                     <br><br>
                     <p style="color: red;"><%= "#{flash[:error]} <br>" if flash.has?(:error) %></p>
                     <input type="submit" value="Submit">
@@ -56,6 +55,7 @@
 
             <div id="bidding-information">
                 <h2>Bidding Information</h2>
+                <p id="auction-cancel"><a href="/auctions/<%= @auction.id %>/delete">Cancel Auction</a></p>
                 <div id="waiting-on">
                     <h3>Waiting on</h3>
                     <% if !@waiting_on.empty? %>

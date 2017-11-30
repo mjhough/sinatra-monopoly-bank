@@ -58,13 +58,10 @@
                     <textarea id="description" name="payment[description]"></textarea>
                     <br><br>
 
-                    <h3 style="text-decoration:none;">Optional Property Fields</h3>
+                    <h3 style="text-decoration:none;">Optional Property Field</h3>
 
                     <label for="property_name">Property Name:</label>
                     <input id="property_name" type="text" name="[property]name">
-                    <label for="property_name">Property Rent:</label>
-                    <input id="property_rent" type="text" name="[property]rent">
-                    <br><br>
                     <p style="color: red;"><%= "#{flash[:error]} <br>" if flash.has?(:error) %></p>
                     <input type="submit" value="Send">
                 </form>

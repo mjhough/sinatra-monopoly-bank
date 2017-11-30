@@ -49,7 +49,7 @@
                     </thead>
                     <tbody>
                 <% if !@user.payments.nil? && !@user.payments.empty? %>
-                    <p><% @user.payments.each do |payment| %>
+                    <p><% @user.payments.reverse.each do |payment| %>
                     <tr>
                         <td><%= payment.created_at.ctime %></td>
                         <td>$<%= payment.amount %></td>
@@ -74,24 +74,22 @@
                         <th>Last Updated</th>
                         <th>Name</th>
                         <th>Price</th>
-                        <th>Rent</th>
                         <th>Payments</th>
                     </tr>
                     </thead>
                     <tbody>
                 <% if !@user.properties.nil? && !@user.properties.empty? %>
-                    <p><% @user.properties.each do |property| %>
+                    <p><% @user.properties.reverse.each do |property| %>
                     <tr>
                         <td><%= property.updated_at.ctime %></td>
                         <td><%= property.name %></td>
                         <td>$<%= property.price %></td>
-                        <td><%= property.rent %></td>
                         <td><a href="/properties/<%= property.id %>/payments">LINK</a></td>
                     </tr>
                     <% end %>
                 <% else %>
                 <tr>
-                    <td colspan="5">No properties are owned</td>
+                    <td colspan="4">No properties are owned</td>
                 </tr>
                 <% end %>
                 </tbody>
