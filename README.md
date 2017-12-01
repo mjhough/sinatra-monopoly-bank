@@ -15,6 +15,8 @@ A monopoly bank for players in the form of a Sinatra webapp. Check it out here h
 3. Run `shotgun`
 4. Visit `localhost:9393` and play the game!
 
+It may be easier to set the app up on Heroku and play it with friends and family. Check out this guide for instructions https://devcenter.heroku.com/articles/getting-started-with-ruby#introduction
+
 ## Development Notes
 If you come across an error or think this can be improved please submit a pull request or let me know via email: matt@hough.tv
 
