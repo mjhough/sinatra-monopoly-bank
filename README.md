@@ -1,5 +1,5 @@
 # sinatra-monopoly-bank
-A monopoly bank for players in the form of a Sinatra webapp. Check it out here http://monopolybank.herokuapp.com
+A monopoly bank for players in the form of a Sinatra webapp. Check it out here http://monopoly-bank.herokuapp.com
 
 
 
